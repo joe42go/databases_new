@@ -1,0 +1,115 @@
+1)
+        Adding: INSERT INTO
+        Updating:  UPDATE
+        Deleting:  DELETE
+
+
+2)
+        Adding: INSERT INTO [name of table] VALUES [values to be inserted]
+        Updating:  UPDATE [name of table]  SET [what column and value will be updated] WHERE [affected row]
+        Deleting: DELETE FROM [name of table] WHERE [affected row]
+
+3)
+       money:  Keep track of bank account balances held by various bank customers
+       timestamp: Keep track of when hourly pay for part-time employees
+
+4)
+  i)
+   First and last name:  text
+   Whether they sent in their RSVP: text
+   Number of guests: int
+   Number of meals: numeric
+
+  ii)
+   CREATE TABLE  wedding_dinner (
+          name text,
+          rsvp text,
+          num_guests integer,
+          num_meals  numeric
+     );
+
+  iii)
+      ALTER TABLE  wedding_dinner ADD COLUMN thank_you_card text;
+
+  iv)
+      ALTER TABLE wedding_dinner DROP COLUMN num_meals;
+
+  v)
+      ALTER TABLE wedding_dinner ADD COLUMN table_num integer;
+
+  vi)
+
+      ALTER TABLE wedding_dinner DROP COLUMN table_num;
+
+ 5)
+ CREATE TABLE  library_books (
+     call_num integer,
+     title text,
+     author text,
+     num_copies integer,
+     copies_avail integer
+     );
+
+  i)
+   INSERT INTO library_books(call_num, title, author, num_copies, copies_avail)
+   VALUES
+   (12345,'Lord of the Flies','William Golding', 3, 2),
+   (03424,'Invisible Man','Ralph Ellison', 3, 3),
+   (23242,'The Sun Also Rises','Ernest Hemingway', 4, 2);
+
+  ii)
+    UPDATE library_books SET copies_avail=1 WHERE title='Lord of the Flies';
+
+  iii)
+
+    DELETE FROM library_books WHERE title='The Sun Also Rises';
+
+6)
+  CREATE TABLE spacecrafts(
+    id integer,
+    name text,
+    launch_year integer,
+    origin text,
+    description text,
+    orbiting_body text,
+    is_active text,
+    miles_from_earth float
+  );
+
+ i)
+  INSERT INTO spacecrafts (id, name, launch_year, origin, description, orbiting_body, is_active, miles_from_earth)
+  VALUES
+  (0001,'Mercury', 1986,'USA', 'Find another earth', 'Moon', 'yes', 2389764),
+  (0002,'Venus', 1990,'USA', 'Find ET', 'Plato', 'yes', 20484948393),
+  (0003,'Mars', 2001,'USA', 'For fun', 'Xenon', 'yes', 390348970273);
+
+ ii)
+   DELETE FROM spacecrafts WHERE id=222;
+
+ iii)
+   UPDATE spacecrafts SET is_active='no' WHERE id=0003;
+
+7)
+  CREATE TABLE inbox(
+  id integer,
+  subject_line text,
+  sender text,
+  recipients text,
+  body text,
+  timestamp timestamp,
+  is_read text,
+  id_email_chain integer
+  );
+
+i)
+  INSERT INTO inbox
+  VALUES
+  (0001, 'Hello', 'Joe','Mack', 'I forgot', '2019-09-01 12:34:13', 'no', 98720),
+  (0002, 'What Up', 'Schmoe','Mike', 'I love you', '2019-09-02 04:33:34', 'yes', 98999),
+  (0003, 'Howdy', 'Cole','Matt', 'Where you at???', '2019-09-07 10:23:11', 'no', 103839);
+
+ii)
+  DELETE FROM inbox WHERE id=0003;
+
+iii)
+  UPDATE inbox SET is_read='no' WHERE id=0002;
