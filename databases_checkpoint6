@@ -1,0 +1,158 @@
+
+1) Related data held in two separate data tables are found with using JOIN clause.
+
+2) Sine INNER JOIN only include matching rows, where the value of joining column is same but OUTER JOIN extends that functionality and also include unmatched rows
+   in the final result. LEFT OUTER JOIN includes unmatched rows from table written on the left of join predicate. On the other hand, RIGHT OUTER JOIN, along with
+   all matching rows, includes unmatched rows from the right side of the table.
+
+   Example of INNER JOIN - One table has teacher names along their respective department ID and another table has the department ID and its department definition. INNER JOIN will only include rows where there is a common department ID on both tables;
+   Example of LEFT OUTER JOIN - Similar example as INNER JOIN but will include all rows from the left table (containing teacher names) even where there is no matching department ID in the second/right table and mark it as 'null' under department ID;
+   Example of RIGHT OUTER JOIN - Converse to the LEFT OUTER JOIN example, RIGHT OUTER JOIN will include all rows from the right table (containing department definition) even where there is no matching department ID in the first/left table and mark it
+   as 'null' under department ID
+
+ 3) Primary key uniquely identify a record in the table and foreign key is a field in the table that is primary key in another table. Example of a primary key would be the currency rate in the table that has data about sales orders and a example of
+    foreign key would be the same currency rate in a separate table strictly dealing with currency related data e.g. currency rate, end of day rate, average currency rate, etc.
+
+ 4) The technique of creating short variable names, usually a single letter, to replace the table name in a query.
+
+ 5)
+	 SELECT p.name, c.salary, c.vacation_days
+   FROM professor AS p
+   JOIN compensation As c
+   ON p.id = c.professor_id;
+
+6) You would use NATURAL JOIN to implicitly join tables based on shared columns between two tables, the matching columns would appear only once. For example, you could use natural join two tables containing the same location data e.g. one table consisting
+   of different departments by location_id and another table has the same column name (location_id) with information by each location e.g. address
+
+7)
+    SELECT employees.name, scheduled_shifts.shift_id
+		FROM employees
+		JOIN scheduled_shifts
+		ON employees.id = scheduled_shifts.employee_id
+
+8)
+
+ a)
+    SELECT first_name, last_name, dogs.name
+    FROM volunteers
+    LEFT OUTER JOIN dogs
+    ON dogs.id= volunteers.foster_dog_id;
+
+    Output:
+
+| first_name | last_name  | name      |
+| ---------- | ---------- | --------- |
+| Rubeus     | Hagrid     | Munchkin  |
+| Marjorie   | Dursley    | Marmaduke |
+| Sirius     | Black      |           |
+| Remus      | Lupin      |           |
+| Albus      | Dumbledore |           |
+
+ b)
+    SELECT cats.name, cat_adoptions.date, adopters.first_name, adopters.last_name
+    FROM cats
+    INNER JOIN cat_adoptions
+    ON cats.id = cat_adoptions.cat_id
+    INNER JOIN adopters
+    ON cat_adoptions.adopter_id = adopters.id
+    WHERE cat_adoptions.date >=(current_date-30);
+
+    Output:
+
+	| name     | date                     | first_name | last_name |
+	| -------- | ------------------------ | ---------- | --------- |
+	| Mushi    | 2018-09-29T00:00:00.000Z | Arabella   | Figg      |
+	| Victoire | 2018-10-04T00:00:00.000Z | Argus      | Filch     |
+
+
+c)
+    SELECT adopters.first_name,adopters.last_name
+    FROM adopters
+    LEFT OUTER JOIN dog_adoptions
+    ON adopters.id= dog_adoptions.adopter_id
+    WHERE dog_adoptions.adopter_id is NULL;
+
+
+  Output:
+
+	| first_name | last_name |
+	| ---------- | --------- |
+	| Hermione   | Granger   |
+	| Arabella   | Figg      |
+
+
+ d)
+    SELECT cats.name
+  	FROM cats
+  	LEFT JOIN cat_adoptions
+  	ON cat_adoptions.cat_id = cats.id
+  	WHERE cat_adoptions.adopter_id is NULL
+  	UNION
+  	SELECT dogs.name
+  	FROM dogs
+  	LEFT JOIN dog_adoptions
+  	ON dog_adoptions.dog_id = dogs.id
+  	WHERE dog_adoptions.adopter_id is NULL;
+
+    Output:
+
+	| name      |
+	| --------- |
+	| Lassie    |
+	| Boujee    |
+	| Marmaduke |
+	| Seashell  |
+	| Munchkin  |
+	| Nala      |
+	| Marley    |
+
+
+ e)
+    SELECT adopters.first_name, adopters.last_name
+  	FROM adopters
+  	JOIN dog_adoptions
+  	ON adopters.id = dog_adoptions.adopter_id
+  	WHERE dog_adoptions.dog_id = 10007;
+
+   Output:
+
+	| first_name | last_name |
+	| ---------- | --------- |
+	| Argus      | Filch     |
+
+
+
+  9)
+  a)
+  	SELECT patrons.name, books.title
+  	FROM holds
+  	JOIN patrons ON patrons.id = holds.patron_id
+  	JOIN books ON books.isbn = holds.isbn
+  	WHERE books.title = 'Advanced Potion-Making';
+
+   Output:
+
+	| name           | title                  |
+	| -------------- | ---------------------- |
+	| Cedric Diggory | Advanced Potion-Making |
+	| Terry Boot     | Advanced Potion-Making |
+
+
+   b)
+    SELECT patrons.name, books.title
+  	FROM patrons
+  	JOIN transactions ON patrons.id = transactions.patron_id
+  	JOIN books ON books.isbn = transactions.isbn
+  	ORDER BY patrons.name;
+
+    Output:
+
+	| name             | title                                   |
+	| ---------------- | --------------------------------------- |
+	| Cedric Diggory   | Fantastic Beasts and Where to Find Them |
+	| Cho Chang        | Advanced Potion-Making                  |
+	| Hermione Granger | Fantastic Beasts and Where to Find Them |
+	| Hermione Granger | Hogwarts: A History                     |
+	| Padma Patil      | Fantastic Beasts and Where to Find Them |
+	| Terry Boot       | Advanced Potion-Making                  |
+	| Terry Boot       | Fantastic Beasts and Where to Find Them |
