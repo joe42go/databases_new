@@ -1,7 +1,7 @@
 1)
-  SELECT age
-  FROM pets
-  WHERE age > 1
+  SELECT person_id
+  FROM table
+  WHERE age > 16
 
 2)
   Surf (SELECT) Fat (FROM) Waves (WHERE)
@@ -23,6 +23,7 @@ Intake teams typically guess the breed of shelter dogs, so the breed column may 
 
 	iii)
    SELECT name,age
+   FROM dogs
    WHERE gender = ‘F’
    AND weight > 35;
 
